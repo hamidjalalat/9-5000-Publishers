@@ -1,0 +1,360 @@
+﻿
+@model IEnumerable<Models.LetterChart>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    .modal-header {
+        background-color: rgb(76, 208, 53);
+        color: white
+    }
+
+    .LetterChartsPageNumber {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+</style>
+<input type="text" name="name" id="Id" value="@ViewBag.PageBaseId" hidden="hidden" />
+<input type="button" value="بار گذاری صفحه جدید" id="newCreatePage" class="btn btn-primary" />
+
+
+<table class="table table table-bordered table-condensed table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                شماره صفحه
+            </th>
+            <th>
+                مسیر
+            </th>
+
+            <th>عملیات</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="@item.Id">
+                    @Html.DisplayFor(modelItem => item.PageNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ServerPath)
+                </td>
+                <td>
+                    <input type="button" value="ویرایش" class="btn btn-primary btnLetterCharts" data-id="@item.Id" />
+                    @*<input type="button" value="نمایش" class="btn btn-primary btnembedShow" id="@item.ServerPath" />*@
+                    <span data-id="@item.Id" class="btnembedShow">
+                        <svg width="3em" height="2em" viewBox="0 0 16 16" class="bi bi-display-fill" fill="currentColor">
+                            <path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z" />
+                        </svg>
+                    </span>
+                    <div class="modal fade bd-example-modal-xl " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="@item.Id">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+
+                                <embed type="text/html" id="showIframe" src="@item.ServerPath" style="height:500px;width:100%">
+
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="modal" id="LetterCharts" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ویرایش نکات طلایی</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class='form-group row'>
+                    <label class="control-label col-sm-4">شماره صفحه</label>
+                    <div class='col-sm-8'>
+                        <input id="LetterChartsPageNumber" name="LetterChartsPageNumber" class="form-control LetterChartsPageNumber" />
+                    </div>
+                </div>
+                <div class='form-group row'>
+                    <label class="control-label col-sm-4">انتخاب فایل محتوا</label>
+                    <div class='col-sm-8'>
+                        <div class="col-md-12">
+                            <input type="file" title="search image" id="fileLetterCharts" class="custom-file-input" name="fileLetterCharts" />
+                            <label class="custom-file-label" for="customFile">انتخاب فایل محتوا</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class='form-group row'>
+                    <label class="control-label col-sm-4"></label>
+                    <div class='col-sm-8'>
+                        <div class="col-md-12">
+                            <label id="validationLetterCharts" style="color: #ed3939;"></label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="button" value="ذخیره" id="saveLetterCharts" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="modal" id="createLetterCharts" tabindex="-1" role="dialog">
+
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">ویرایش نکات طلایی</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class='form-group row'>
+                    <label class="control-label col-sm-4">شماره صفحه</label>
+                    <div class='col-sm-8'>
+                        <input id="createLetterChartsPageNumber" name="LetterChartsPageNumber" class="form-control" />
+                    </div>
+                </div>
+                <div class='form-group row'>
+                    <label class="control-label col-sm-4">انتخاب فایل محتوا</label>
+                    <div class='col-sm-8'>
+                        <div class="col-md-12">
+                            <input type="file" title="search image" id="createfileLetterCharts" class="custom-file-input" name="fileLetterCharts" />
+                            <label class="custom-file-label" for="customFile">انتخاب فایل محتوا</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class='form-group row'>
+                    <label class="control-label col-sm-4"></label>
+                    <div class='col-sm-8'>
+                        <div class="col-md-12">
+                            <label id="validationLetterCharts" style="color: #ed3939;"></label>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input type="button" value="ذخیره" id="createSaveLetterCharts" class="btn btn-primary" />
+                </div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<div class="modal" id="messageSuccess" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:rgb(76, 208, 53);color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>عملیات ذخیره با موفقیت انجام شد</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="messageError" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>متاسفانه عملیات ذخیره انجام نشد </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="publicMessage" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="embedShow">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            @*<embed src="~/cover/pdf-test.pdf" style="height:100%;width:100%;background-color:red" ></embed>*@
+            @*<iframe id="showIframe" style="height:500px;width:100%" >
+                </iframe>*@
+            @*<iframe src="~/cover/testjalalat.epub"></iframe>*@
+            <embed type="text/html" id="showIframe" src="~/pageLetterCharts/testjalalat.htm" style="height:500px;width:100%">
+
+            @*<embed type="text/html" src="~/cover/" width="500" height="200">*@
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+    var idCurrent = 0;
+    $('#saveLetterCharts').click(function () {
+
+        var LetterChartsPageNumber = $("#LetterChartsPageNumber").val();
+        var fileLetterCharts = $("#fileLetterCharts").val();
+
+        if (LetterChartsPageNumber == "") {
+            $('#validationLetterCharts').html('وارد کردن شماره صفحه الزامی می باشد');
+            return;
+        }
+        if (fileLetterCharts == "") {
+            $('#validationLetterCharts').html('انتخاب فایل محتوا الزامی می باشد');
+            return;
+        }
+        var fileUpload = $("#fileLetterCharts").get(0);
+        var files = fileUpload.files;
+        var data = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            data.append(files[i].name, files[i]);
+        }
+        data.append('pageBaseId', $('#Id').val());
+        data.append('letterChartsPageNumber', $('#LetterChartsPageNumber').val());
+        data.append('id', idCurrent);
+        $.ajax({
+            type: "POST",
+            url: "/PageBases/UploadEditLetterCharts",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (result) {
+                if (result.result == true) {
+                    $("div#messageSuccess").modal();
+                    document.location.reload();
+                }
+                else {
+                    $("div#publicMessage p").html(result.message);
+                    $("div#publicMessage").modal();
+                }
+            },
+            error: function () {
+                $("div#messageError").modal();
+            }
+        });
+
+        $(`div#LetterCharts`).modal('hide');
+
+
+    });
+    newCreatePage
+    $('.btnLetterCharts').click(function () {
+        $('#validationLetterCharts').html("");
+
+        $("div#LetterCharts").modal();
+       idCurrent = $(this).attr("data-id");
+
+        var valueTd = $('.' + idCurrent).text().trim();
+        $("#LetterChartsPageNumber").val(valueTd);
+    });
+    $('#newCreatePage').click(function () {
+        $('#validationLetterCharts').html("");
+
+        $("div#createLetterCharts").modal();
+
+    });
+
+    $('.btnembedShow').click(function () {
+    var dataid=$(this).attr("data-id");
+        $('#'+dataid+'').modal();
+    });
+
+
+
+    $('#createSaveLetterCharts').click(function () {
+        var LetterChartsPageNumber = $("#createLetterChartsPageNumber").val();
+        var fileLetterCharts = $("#createfileLetterCharts").val();
+        if (LetterChartsPageNumber == "") {
+            $('#validationLetterCharts').html('وارد کردن شماره صفحه الزامی می باشد');
+            return;
+        }
+        if (fileLetterCharts == "") {
+            $('#validationLetterCharts').html('انتخاب فایل محتوا الزامی می باشد');
+            return;
+        }
+        var fileUpload = $("#createfileLetterCharts").get(0);
+        var files = fileUpload.files;
+        var data = new FormData();
+        for (var i = 0; i < files.length; i++) {
+            data.append(files[i].name, files[i]);
+        }
+        data.append('id', $('#Id').val());
+        data.append('letterChartPageNumber', $('#createLetterChartsPageNumber').val());
+        $.ajax({
+            type: "POST",
+            url: "/PageBases/UploadFilessLetterChart",
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (result) {
+                if (result.result == true) {
+                    $("div#messageSuccess").modal();
+                    document.location.reload();
+                }
+                else {
+                    $("div#publicMessage p").html(result.message);
+                    $("div#publicMessage").modal();
+                }
+            },
+            error: function () {
+                $("div#messageError").modal();
+            }
+        });
+
+        $(`div#LetterCharts`).modal('hide');
+
+
+    });
+
+
+</script>
+
+
+
+

@@ -1,0 +1,66 @@
+﻿@model Models.PageBase
+@{
+    ViewData["Title"] = "FullUpdatePageBase";
+}
+
+
+<div class="card">
+    <div class="card-header" style=" background-color: rgb(76, 208, 53); color: white">
+        <h3 class="panel-title">
+            بارگذاری صفحه
+        </h3>
+    </div>
+    <div class="card-body">
+        <form asp-action="FullUpdatePageBase" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class='form-group row'>
+                <label asp-for="BookId" class="control-label col-sm-2"></label>
+                <div class='col-sm-8'>
+                    <select asp-for="BookId" class="form-control" asp-items="ViewBag.BookId"></select>
+                </div>
+            </div>
+
+            <div class='form-group row'>
+                <label asp-for="ServerPath" class="control-label col-sm-2"></label>
+                <div class='col-sm-8'>
+                    <div class="col-md-12">
+                        <input type="file" title="search image" id="file" class="custom-file-input" name="file" />
+                        <label class="custom-file-label" for="customFile">انتخاب فایل فشرده شده</label>
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="ذخیره" id="save" class="btn btn-primary" />
+            </div>
+
+            <div class="modal" id="publicMessage" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:red;color:white">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <p></p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </form>
+
+    </div>
+</div>
+<script>
+       $(".custom-file-input").on("change", function () {
+        var fileName = $(this).val().split("\\").pop();
+        $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+    });
+</script>

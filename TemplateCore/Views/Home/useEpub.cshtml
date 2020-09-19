@@ -1,0 +1,81 @@
+﻿
+@{
+    Layout = "_LayoutSolid";
+    ViewData["Title"] = "Iframetest";
+}
+<style>
+
+
+    body {
+        background-color: #f2e5cb;
+    }
+
+
+
+    #iframeID {
+        background-color: #f7eedc;
+        transition-delay: 0s;
+        transition-duration: 200ms;
+        transition-property: transform;
+        transition-timing-function: ease-in-out;
+    }
+
+    .round-red, .round-red-big, .round-red-small, .round-red-border, .round-red-border-big, .round-red-border-small {
+        color: #ffffff; /*-- Change Text Color of the Button --*/
+        display: inline-block;
+        font-size: 15px; /*-- Change Size of the Button --*/
+        font-weight: bold;
+        width: 100px;
+        height: 100px;
+        top: 100px;
+        left: 150px;
+        border: solid 1px;
+        border-radius: 50%;
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        -o-border-radius: 50%;
+        text-align: center;
+        cursor: pointer;
+        opacity: .8;
+    }
+
+    .round-red-small, .round-red-border-small {
+        font-size: 12px;
+        width: 45px;
+        height: 45px;
+        top: 45px;
+        left: 90px;
+    }
+
+
+    #settingsfull {
+        position: fixed;
+        z-index: 1;
+        margin-right: 15%;
+    }
+</style>
+    <script src="~/js/hjComponent.js"></script>
+<div id="app">
+
+    <epub v-bind:external-page="'pagebase/test1.htm'"></epub>
+</div>
+<script>
+    const app = new Vue({
+
+        el: `#app`,
+
+        data: {
+
+ 
+
+        },
+
+    });
+
+</script>
+
+
+
+
+
+

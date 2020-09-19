@@ -1,0 +1,1299 @@
+﻿
+@{
+    Layout = null;
+}
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script src="~/js/vue.js"></script>
+<script src="~/js/axios.js"></script>
+
+<style>
+    body {
+        font-family: 'Oswald';
+        font-weight: 300;
+        background: #f0f6ff;
+    }
+
+    .blocks {
+        width: 100%;
+        height: 100%;
+        /*margin-left: -50px;*/
+    }
+
+    .blocks1 {
+        width: 100%;
+        height: 100%;
+        /*margin-left: -50px;*/
+    }
+
+    .blocks2 {
+        width: 100%;
+        height: 100%;
+        /*margin-left: -50px;*/
+    }
+
+
+
+
+
+    #block.default {
+        -webkit-animation: bounce 1s;
+    }
+
+    #block1.default1 {
+        -webkit-animation: bounce 1s;
+    }
+
+    #block2.default2 {
+        -webkit-animation: bounce 1s;
+    }
+
+
+
+    nav {
+        width: 100px;
+    }
+
+        nav ul {
+            padding: 0;
+        }
+
+            nav ul li {
+                display: inline-block;
+                width: 100%;
+            }
+
+                nav ul li a {
+                    display: block;
+                    padding: 5px 10px;
+                    font-size: 14px;
+                    border-radius: 2px;
+                    cursor: pointer;
+                    text-decoration: none;
+                    color: #888;
+                }
+
+                    nav ul li a.active, nav ul li a.active:hover {
+                        background: rgba(39, 174, 244, 1);
+                        color: #fff;
+                    }
+
+                    nav ul li a:hover {
+                        background: rgba(39, 174, 244, 0.2);
+                    }
+
+    @@-webkit-keyframes bounce {
+        0% {
+            -webkit-transform: translateY(-400%);
+        }
+
+        5% {
+            -webkit-transform: translateY(-300%);
+        }
+
+        10% {
+            -webkit-transform: translateY(-200%);
+        }
+
+        15% {
+            -webkit-transform: translateY(-100%);
+        }
+
+        20% {
+            -webkit-transform: translateY(0%);
+        }
+
+        30% {
+            -webkit-transform: translateY(-30%);
+        }
+
+        40% {
+            -webkit-transform: translateY(0%);
+        }
+
+        50% {
+            -webkit-transform: translateY(-15%);
+        }
+
+        60% {
+            -webkit-transform: translateY(0%);
+        }
+
+        80% {
+            -webkit-transform: translateY(0%);
+        }
+
+        100% {
+            -webkit-transform: translateY(0%);
+        }
+    }
+</style>
+
+
+@*book*@
+<style>
+
+    ::before,
+    ::after {
+        content: "";
+    }
+
+
+
+    body {
+        background: #deebef;
+        color: #34495e;
+        font-family: 'Lato', 'Arial', sans-serif;
+        font-weight: 400;
+        line-height: 1.2;
+    }
+
+    ul {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+
+    a {
+        color: #2c3e50;
+        text-decoration: none;
+    }
+
+    .btn {
+        display: inline-block;
+        text-transform: uppercase;
+        border: 2px solid #2c3e50;
+        margin-top: 100px;
+        font-size: 0.7em;
+        font-weight: 700;
+        padding: 0.1em 0.4em;
+        text-align: center;
+        -webkit-transition: color 0.3s, border-color 0.3s;
+        -moz-transition: color 0.3s, border-color 0.3s;
+        transition: color 0.3s, border-color 0.3s;
+    }
+
+        .btn:hover {
+            border-color: #16a085;
+            color: #16a085;
+        }
+
+    /* basic grid, only for this demo */
+
+    .align {
+        clear: both;
+        width: 100%;
+        /*text-align: center;*/
+    }
+
+        .align > li {
+            width: 25%;
+            display: inline-block;
+            margin: 30px 20px 30px 30px;
+            padding: 0 0 0 60px;
+            vertical-align: top;
+        }
+
+    .align1 {
+        clear: both;
+        width: 100%;
+        /*text-align: center;*/
+    }
+
+        .align1 > li {
+            width: 25%;
+            display: inline-block;
+            margin: 30px 20px 30px 30px;
+            padding: 0 0 0 60px;
+            vertical-align: top;
+        }
+
+    .align2 {
+        clear: both;
+        width: 100%;
+        /*text-align: center;*/
+    }
+
+        .align2 > li {
+            width: 25%;
+            display: inline-block;
+            margin: 30px 20px 30px 30px;
+            padding: 0 0 0 60px;
+            vertical-align: top;
+        }
+
+    /* ///////////////////////////////////////////////////
+
+    HARDCOVER
+    Table of Contents
+
+    1. container
+    2. background & color
+    3. opening cover, back cover and pages
+    4. position, transform y transition
+    5. events
+    6. Bonus
+        - Cover design
+        - Ribbon
+        - Figcaption
+    7. mini-reset
+
+    /////////////////////////////////////////////////////*/
+
+    /*
+        1. container
+    */
+
+    .book {
+        position: relative;
+        width: 155%;
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+        -webkit-perspective: 1000px;
+        -moz-perspective: 1000px;
+        perspective: 1000px;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    /*
+        2. background & color
+    */
+
+    /* HARDCOVER FRONT */
+    /*.hardcover_front li:first-child {
+        background-color: #eee;
+        -webkit-backface-visibility: hidden;
+        -moz-backface-visibility: hidden;
+        backface-visibility: hidden;
+    }*/
+
+    /* reverse */
+    .hardcover_front li:last-child {
+        background: #fffbec;
+    }
+
+    /* HARDCOVER BACK */
+    .hardcover_back li:first-child {
+        background: #fffbec;
+    }
+
+    /* reverse */
+    .hardcover_back li:last-child {
+        background: #fffbec;
+    }
+
+    .book_spine li:first-child {
+        background: #eee;
+    }
+
+    .book_spine li:last-child {
+        background: #333;
+    }
+
+        /* thickness of cover */
+
+        .hardcover_front li:first-child:after,
+        .hardcover_front li:first-child:before,
+        .hardcover_front li:last-child:after,
+        .hardcover_front li:last-child:before,
+        .hardcover_back li:first-child:after,
+        .hardcover_back li:first-child:before,
+        .hardcover_back li:last-child:after,
+        .hardcover_back li:last-child:before,
+        .book_spine li:first-child:after,
+        .book_spine li:first-child:before,
+        .book_spine li:last-child:after,
+        .book_spine li:last-child:before {
+            background: #999;
+        }
+
+    /* page */
+
+
+
+    /*
+        3. opening cover, back cover and pages
+    */
+
+    .hardcover_front {
+        -webkit-transform: rotateY(-34deg) translateZ(8px);
+        -moz-transform: rotateY(-34deg) translateZ(8px);
+        transform: rotateY(-34deg) translateZ(8px);
+        z-index: 100;
+    }
+
+    .hardcover_back {
+        -webkit-transform: rotateY(-15deg) translateZ(-8px);
+        -moz-transform: rotateY(-15deg) translateZ(-8px);
+        transform: rotateY(-15deg) translateZ(-8px);
+    }
+
+    .page li:nth-child(1) {
+        -webkit-transform: rotateY(-28deg);
+        -moz-transform: rotateY(-28deg);
+        transform: rotateY(-28deg);
+    }
+
+    .page li:nth-child(2) {
+        -webkit-transform: rotateY(-30deg);
+        -moz-transform: rotateY(-30deg);
+        transform: rotateY(-30deg);
+    }
+
+    .page li:nth-child(3) {
+        -webkit-transform: rotateY(-32deg);
+        -moz-transform: rotateY(-32deg);
+        transform: rotateY(-32deg);
+    }
+
+    .page li:nth-child(4) {
+        -webkit-transform: rotateY(-34deg);
+        -moz-transform: rotateY(-34deg);
+        transform: rotateY(-34deg);
+    }
+
+    .page li:nth-child(5) {
+        -webkit-transform: rotateY(-36deg);
+        -moz-transform: rotateY(-36deg);
+        transform: rotateY(-36deg);
+    }
+
+    /*
+        4. position, transform & transition
+    */
+
+    .hardcover_front,
+    .hardcover_back,
+    .book_spine,
+    .hardcover_front li,
+    .hardcover_back li,
+    .book_spine li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    .hardcover_front,
+    .hardcover_back {
+        -webkit-transform-origin: 0% 100%;
+        -moz-transform-origin: 0% 100%;
+        transform-origin: 0% 100%;
+    }
+
+    .hardcover_front {
+        -webkit-transition: all 0.8s ease, z-index 0.6s;
+        -moz-transition: all 0.8s ease, z-index 0.6s;
+        transition: all 0.8s ease, z-index 0.6s;
+    }
+
+        /* HARDCOVER front */
+        .hardcover_front li:first-child {
+            cursor: default;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+            -webkit-transform: translateZ(2px);
+            -moz-transform: translateZ(2px);
+            transform: translateZ(2px);
+        }
+
+        .hardcover_front li:last-child {
+            -webkit-transform: rotateY(180deg) translateZ(2px);
+            -moz-transform: rotateY(180deg) translateZ(2px);
+            transform: rotateY(180deg) translateZ(2px);
+        }
+
+    /* HARDCOVER back */
+    .hardcover_back li:first-child {
+        -webkit-transform: translateZ(2px);
+        -moz-transform: translateZ(2px);
+        transform: translateZ(2px);
+    }
+
+    .hardcover_back li:last-child {
+        -webkit-transform: translateZ(-2px);
+        -moz-transform: translateZ(-2px);
+        transform: translateZ(-2px);
+    }
+
+        /* thickness of cover */
+        .hardcover_front li:first-child:after,
+        .hardcover_front li:first-child:before,
+        .hardcover_front li:last-child:after,
+        .hardcover_front li:last-child:before,
+        .hardcover_back li:first-child:after,
+        .hardcover_back li:first-child:before,
+        .hardcover_back li:last-child:after,
+        .hardcover_back li:last-child:before,
+        .book_spine li:first-child:after,
+        .book_spine li:first-child:before,
+        .book_spine li:last-child:after,
+        .book_spine li:last-child:before {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+    /* HARDCOVER front */
+    .hardcover_front li:first-child:after,
+    .hardcover_front li:first-child:after {
+        -webkit-transform: rotateY(90deg) translateZ(-2px) translateX(2px);
+        -moz-transform: rotateY(90deg) translateZ(-2px) translateX(2px);
+        transform: rotateY(90deg) translateZ(-2px) translateX(2px);
+    }
+
+    .hardcover_front li:first-child:before {
+        -webkit-transform: rotateY(90deg) translateZ(158px) translateX(2px);
+        -moz-transform: rotateY(90deg) translateZ(158px) translateX(2px);
+        transform: rotateY(90deg) translateZ(158px) translateX(2px);
+    }
+
+    .hardcover_front li:last-child:after,
+    .hardcover_front li:last-child:after {
+        -webkit-transform: rotateX(90deg) rotateZ(90deg) translateZ(80px) translateX(-2px) translateY(-78px);
+        -moz-transform: rotateX(90deg) rotateZ(90deg) translateZ(80px) translateX(-2px) translateY(-78px);
+        transform: rotateX(90deg) rotateZ(90deg) translateZ(80px) translateX(-2px) translateY(-78px);
+    }
+
+    .hardcover_front li:last-child:before {
+        -webkit-transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(-2px) translateY(-78px);
+        -moz-transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(-2px) translateY(-78px);
+        transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(-2px) translateY(-78px);
+    }
+
+    /* thickness of cover */
+
+    .hardcover_back li:first-child:after,
+    .hardcover_back li:first-child:after {
+        -webkit-transform: rotateY(90deg) translateZ(-2px) translateX(2px);
+        -moz-transform: rotateY(90deg) translateZ(-2px) translateX(2px);
+        transform: rotateY(90deg) translateZ(-2px) translateX(2px);
+    }
+
+    .hardcover_back li:first-child:before {
+        -webkit-transform: rotateY(90deg) translateZ(158px) translateX(2px);
+        -moz-transform: rotateY(90deg) translateZ(158px) translateX(2px);
+        transform: rotateY(90deg) translateZ(158px) translateX(2px);
+    }
+
+    .hardcover_back li:last-child:after,
+    .hardcover_back li:last-child:after {
+        -webkit-transform: rotateX(90deg) rotateZ(90deg) translateZ(80px) translateX(2px) translateY(-78px);
+        -moz-transform: rotateX(90deg) rotateZ(90deg) translateZ(80px) translateX(2px) translateY(-78px);
+        transform: rotateX(90deg) rotateZ(90deg) translateZ(80px) translateX(2px) translateY(-78px);
+    }
+
+    .hardcover_back li:last-child:before {
+        -webkit-transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(2px) translateY(-78px);
+        -moz-transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(2px) translateY(-78px);
+        transform: rotateX(90deg) rotateZ(90deg) translateZ(-140px) translateX(2px) translateY(-78px);
+    }
+
+    /* BOOK SPINE */
+    .book_spine {
+        -webkit-transform: rotateY(60deg) translateX(-5px) translateZ(-12px);
+        -moz-transform: rotateY(60deg) translateX(-5px) translateZ(-12px);
+        transform: rotateY(60deg) translateX(-5px) translateZ(-12px);
+        z-index: 0;
+    }
+
+        .book_spine li:first-child {
+            -webkit-transform: translateZ(2px);
+            -moz-transform: translateZ(2px);
+            transform: translateZ(2px);
+        }
+
+        .book_spine li:last-child {
+            -webkit-transform: translateZ(-2px);
+            -moz-transform: translateZ(-2px);
+            transform: translateZ(-2px);
+        }
+
+        /* thickness of book spine */
+        .book_spine li:first-child:after,
+        .book_spine li:first-child:before {
+            /*width: 4px;
+            height: 100%;*/
+        }
+
+        .book_spine li:first-child:after {
+            -webkit-transform: rotateY(90deg) translateZ(-2px) translateX(2px);
+            -moz-transform: rotateY(90deg) translateZ(-2px) translateX(2px);
+            transform: rotateY(90deg) translateZ(-2px) translateX(2px);
+        }
+
+        .book_spine li:first-child:before {
+            -webkit-transform: rotateY(-90deg) translateZ(-12px);
+            -moz-transform: rotateY(-90deg) translateZ(-12px);
+            transform: rotateY(-90deg) translateZ(-12px);
+        }
+
+        .book_spine li:last-child:after,
+        .book_spine li:last-child:before {
+            /*width: 4px;
+            height: 16px;*/
+        }
+
+        .book_spine li:last-child:after {
+            -webkit-transform: rotateX(90deg) rotateZ(90deg) translateZ(8px) translateX(2px) translateY(-6px);
+            -moz-transform: rotateX(90deg) rotateZ(90deg) translateZ(8px) translateX(2px) translateY(-6px);
+            transform: rotateX(90deg) rotateZ(90deg) translateZ(8px) translateX(2px) translateY(-6px);
+        }
+
+        .book_spine li:last-child:before {
+            -webkit-transform: rotateX(90deg) rotateZ(90deg) translateZ(-210px) translateX(2px) translateY(-6px);
+            -moz-transform: rotateX(90deg) rotateZ(90deg) translateZ(-210px) translateX(2px) translateY(-6px);
+            transform: rotateX(90deg) rotateZ(90deg) translateZ(-210px) translateX(2px) translateY(-6px);
+        }
+
+    .page,
+    .page > li {
+        position: absolute;
+        top: 0;
+        left: 0;
+        -webkit-transform-style: preserve-3d;
+        -moz-transform-style: preserve-3d;
+        transform-style: preserve-3d;
+    }
+
+    .page {
+        width: 100%;
+        height: 98%;
+        top: 1%;
+        left: 3%;
+        z-index: 10;
+    }
+
+        .page > li {
+            width: 100%;
+            height: 100%;
+            -webkit-transform-origin: left center;
+            -moz-transform-origin: left center;
+            transform-origin: left center;
+            -webkit-transition-property: transform;
+            -moz-transition-property: transform;
+            transition-property: transform;
+            -webkit-transition-timing-function: ease;
+            -moz-transition-timing-function: ease;
+            transition-timing-function: ease;
+        }
+
+            .page > li:nth-child(1) {
+                -webkit-transition-duration: 0.6s;
+                -moz-transition-duration: 0.6s;
+                transition-duration: 0.6s;
+            }
+
+            .page > li:nth-child(2) {
+                -webkit-transition-duration: 0.6s;
+                -moz-transition-duration: 0.6s;
+                transition-duration: 0.6s;
+            }
+
+            .page > li:nth-child(3) {
+                -webkit-transition-duration: 0.4s;
+                -moz-transition-duration: 0.4s;
+                transition-duration: 0.4s;
+            }
+
+            .page > li:nth-child(4) {
+                -webkit-transition-duration: 0.5s;
+                -moz-transition-duration: 0.5s;
+                transition-duration: 0.5s;
+            }
+
+            .page > li:nth-child(5) {
+                -webkit-transition-duration: 0.6s;
+                -moz-transition-duration: 0.6s;
+                transition-duration: 0.6s;
+            }
+
+    /*
+        5. events
+    */
+
+    .book:hover > .hardcover_front {
+        -webkit-transform: rotateY(-145deg) translateZ(0);
+        -moz-transform: rotateY(-145deg) translateZ(0);
+        transform: rotateY(-145deg) translateZ(0);
+        z-index: 0;
+    }
+
+    .book:hover > .page li:nth-child(1) {
+        -webkit-transform: rotateY(-30deg);
+        -moz-transform: rotateY(-30deg);
+        transform: rotateY(-30deg);
+        -webkit-transition-duration: 1.5s;
+        -moz-transition-duration: 1.5s;
+        transition-duration: 1.5s;
+    }
+
+    .book:hover > .page li:nth-child(2) {
+        -webkit-transform: rotateY(-35deg);
+        -moz-transform: rotateY(-35deg);
+        transform: rotateY(-35deg);
+        -webkit-transition-duration: 1.8s;
+        -moz-transition-duration: 1.8s;
+        transition-duration: 1.8s;
+    }
+
+    .book:hover > .page li:nth-child(3) {
+        -webkit-transform: rotateY(-118deg);
+        -moz-transform: rotateY(-118deg);
+        transform: rotateY(-118deg);
+        -webkit-transition-duration: 1.6s;
+        -moz-transition-duration: 1.6s;
+        transition-duration: 1.6s;
+    }
+
+    .book:hover > .page li:nth-child(4) {
+        -webkit-transform: rotateY(-130deg);
+        -moz-transform: rotateY(-130deg);
+        transform: rotateY(-130deg);
+        -webkit-transition-duration: 1.4s;
+        -moz-transition-duration: 1.4s;
+        transition-duration: 1.4s;
+    }
+
+    .book:hover > .page li:nth-child(5) {
+        -webkit-transform: rotateY(-140deg);
+        -moz-transform: rotateY(-140deg);
+        transform: rotateY(-140deg);
+        -webkit-transition-duration: 1.2s;
+        -moz-transition-duration: 1.2s;
+        transition-duration: 1.2s;
+    }
+
+    /*
+        6. Bonus
+    */
+
+    /* cover CSS */
+
+
+
+
+
+
+
+    /* Basic ribbon */
+
+
+
+
+
+    /* figcaption */
+
+
+
+
+
+    /* Media Queries */
+    @@media screen and (max-width: 2.8125em) {
+        .align > li {
+            width: 100%;
+            min-height: 440px;
+            height: auto;
+            padding: 0;
+            margin: 0 0 30px 0;
+        }
+
+        .book {
+            margin: 0 auto;
+        }
+
+        figcaption {
+            text-align: center;
+            width: 320px;
+            top: 250px;
+            padding-left: 0;
+            left: -80px;
+            font-size: 90%;
+        }
+    }
+
+    .coverfirst {
+        -webkit-transform: scaleX(-1);
+        transform: scaleX(-1);
+    }
+
+    #bookslist {
+        display: flex;
+        flex-flow: row-reverse;
+        width: 95%;
+    }
+</style>
+
+@*Titel*@
+<style>
+    #titeleanimation {
+        margin-left: 25%;
+        height: 20%;
+    }
+
+    canvas {
+        position: absolute;
+        width: 55%;
+        cursor: move;
+        background-color: #deebef;
+    }
+
+    #screen {
+        position: absolute;
+        border: #ccb9a0 solid 15px;
+        border-radius: 1vw;
+        background-color: white;
+        width: 30%;
+        transform-origin: 0 0;
+        overflow: hidden;
+        user-select: none;
+        box-shadow: 20px 20px 40px rgba(0,0,0,0.2);
+    }
+</style>
+
+
+
+
+@*book*@
+<nav hidden="hidden">
+    <ul>
+        <li><a href="default" class="default">Default</a></li>
+
+    </ul>
+</nav>
+<nav hidden="hidden">
+    <ul>
+        <li><a href="default1" class="default1">Default1</a></li>
+
+    </ul>
+</nav>
+<nav hidden="hidden">
+    <ul>
+        <li><a href="default2" class="default2">Default2</a></li>
+
+    </ul>
+</nav>
+<img src="~/css/13998.jpg"  />
+<br />
+<img src="~/css/14694.jpg" />
+<p>Scrolled <span id="main">0</span> times.</p>
+<br />
+<div style="width:100%;height:100%" id="bodymain">
+    <div id="titeleanimation">
+        <canvas id="c"></canvas>
+
+        <iframe frameborder="0" id="screen" src="~/css/htmlpage.html"></iframe>
+    </div>
+    <div id="bookslist">
+        <div class="blocks">
+            <div class="component default" id="block">
+                <ul class="align">
+                    <li>
+                        <figure class='book'>
+
+                            <!-- Front -->
+
+                            <ul class='hardcover_front'>
+                                <li>
+                                    <div class="coverfirst">
+
+                                        <img src="~/css/14694.jpg" style="width:102%;border:10px" />
+
+                                    </div>
+                                </li>
+                                <li></li>
+                            </ul>
+
+                            <!-- Pages -->
+
+                            <ul class='page'>
+                                <li>
+                                    <img src="~/css/13998.jpg " style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/70422.jpg" class="coverfirst" style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/13998.jpg " style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/13998.jpg " style="width:102%" />
+                                </li>
+                                <li class="coverfirst">
+                                    <img src="~/css/37373.jpg" style="width:102%" />
+                                </li>
+                            </ul>
+
+                            <!-- Back -->
+
+                            <ul class='hardcover_back'>
+                                <li>
+                                    <img src="~/css/37373.jpg" style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/37373.jpg" style="width:102%" />
+                                </li>
+                            </ul>
+                            @*<ul class='book_spine'>
+                                    <li>
+                                    </li>
+                                    <li>
+                                    </li>
+                                </ul>*@
+
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="blocks1">
+            <div class="component1 default1" id="block1">
+                <ul class="align2">
+                    <li>
+                        <figure class='book'>
+
+                            <!-- Front -->
+
+                            <ul class='hardcover_front'>
+                                <li>
+                                    <div class="coverfirst">
+
+                                        <img src="~/css/13998.jpg " style="width:102%" />
+
+                                    </div>
+                                </li>
+                                <li></li>
+                            </ul>
+
+                            <!-- Pages -->
+
+                            <ul class='page'>
+                                <li>
+                                    <img src="~/css/14694.jpg" style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/70422.jpg" class="coverfirst" style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/13998.jpg " style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/13998.jpg " style="width:102%" />
+                                </li>
+                                <li class="coverfirst">
+                                    <img src="~/css/37373.jpg" style="width:102%" />
+                                </li>
+                            </ul>
+
+                            <!-- Back -->
+
+                            <ul class='hardcover_back'>
+                                <li>
+                                    <img src="~/css/37373.jpg" style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/37373.jpg" style="width:102%" />
+                                </li>
+                            </ul>
+                            <ul class='book_spine'>
+                                <li>
+                                </li>
+                                <li>
+                                </li>
+                            </ul>
+
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="blocks2">
+            <div class="component2 default2" id="block2">
+                <ul class="align2">
+                    <li>
+                        <figure class='book'>
+
+                            <!-- Front -->
+
+                            <ul class='hardcover_front'>
+                                <li>
+                                    <div class="coverfirst">
+                                        <img src="~/css/37373.jpg" style="width:102%" />
+                                    </div>
+                                </li>
+                                <li></li>
+                            </ul>
+
+                            <!-- Pages -->
+
+                            <ul class='page'>
+                                <li>
+                                    <img src="~/css/14694.jpg" style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/70422.jpg" class="coverfirst" style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/13998.jpg " style="width:102%" />
+
+                                </li>
+                                <li>
+                                    <img src="~/css/13998.jpg " style="width:102%" />
+                                </li>
+                                <li class="coverfirst">
+                                    <img src="~/css/13998.jpg " style="width:102%" />
+
+                                </li>
+                            </ul>
+
+                            <!-- Back -->
+
+                            <ul class='hardcover_back'>
+                                <li>
+                                    <img src="~/css/37373.jpg" style="width:102%" />
+                                </li>
+                                <li>
+                                    <img src="~/css/37373.jpg" style="width:102%" />
+                                </li>
+                            </ul>
+                            <ul class='book_spine'>
+                                <li>
+                                </li>
+                                <li>
+                                </li>
+                            </ul>
+
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div>
+
+        <img src="~/css/pngfuel - Copy.png" style="width:100%;margin-top:14%" />
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+
+    var flag = true;
+    $(document).ready(function () {
+        $('#block').hide();
+        $('#block1').hide();
+        $('#block2').hide();
+        var lastScrollTop = 0;
+        $(window).scroll(function (event) {
+            var st = $(this).scrollTop();
+            if (st > lastScrollTop) {
+                document.getElementById("main").innerHTML = st += 1;
+                if (st >= 975 && this.flag == true) {
+                    this.flag = false
+                    var _this = $('.default');
+                    $('nav li a').removeClass('active');
+                    $('.default').addClass('active');
+
+                    $('#block').removeAttr('class');
+                    $('#block').show();
+
+                    $('#block').attr('class', _this.attr('href'));
+
+
+                    //------------------
+                    setTimeout(function () {
+                        var _this1 = $('.default1');
+                        $('nav li a').removeClass('active');
+                        $('.default1').addClass('active');
+
+                        $('#block1').removeAttr('class');
+                        $('#block1').show();
+
+                        $('#block1').attr('class', _this1.attr('href'));
+                    }, 1000);
+
+                    //------------------
+                    setTimeout(function () {
+                        var _this2 = $('.default2');
+                        $('nav li a').removeClass('active');
+                        $('.default2').addClass('active');
+
+                        $('#block2').removeAttr('class');
+                        $('#block2').show();
+
+                        $('#block2').attr('class', _this2.attr('href'));
+                    }, 2000);
+
+                    //------------------
+                    return;
+                    //return false;
+                }
+            } else {
+                if (st <= 378) {
+                    this.flag = true;
+                    $('#block').hide();
+                    $('#block1').hide();
+                    $('#block2').hide();
+                }
+                document.getElementById("main").innerHTML = st -= 1;
+            }
+            lastScrollTop = st;
+        });
+    });
+
+
+</script>
+
+@*Titel*@
+<script>
+
+
+
+    function hjfunction() {
+        class Point {
+            constructor(x, y, mass) {
+                this.x = x;
+                this.y = y;
+                this.ox = x;
+                this.oy = y;
+                this.mass = mass;
+                points.push(this);
+            }
+            integrate() {
+                if (!this.mass) return;
+                const x = this.x;
+                const y = this.y;
+                this.x += this.x - this.ox;
+                this.y += this.y - this.oy + 0.5;
+                this.ox = x;
+                this.oy = y;
+            }
+            link(p, rigid, visible) {
+                new Link(this, p, rigid, visible);
+                return this;
+            }
+        }
+        class Link {
+            constructor(p0, p1, rigid, visible) {
+                this.p0 = p0;
+                this.p1 = p1;
+                this.visible = visible;
+                this.rigid = rigid;
+                const dx = p0.x - p1.x;
+                const dy = p0.y - p1.y;
+                this.dist = Math.sqrt(dx * dx + dy * dy);
+                links.push(this);
+            }
+            // solve constraint
+            solve() {
+                const p0 = this.p0;
+                const p1 = this.p1;
+                let dx = p0.x - p1.x;
+                let dy = p0.y - p1.y;
+                const currentDist = Math.sqrt(dx * dx + dy * dy);
+                if (currentDist === 0) return;
+                const delta = 1.0 * (currentDist - this.dist) / currentDist;
+                if (!this.rigid && delta < 0) return;
+                dx *= delta;
+                dy *= delta;
+                let m1 = p0.mass + p1.mass;
+                let m2 = p0.mass / m1;
+                m1 = p1.mass / m1;
+                p1.x += dx * m1;
+                p1.y += dy * m1;
+                p0.x -= dx * m2;
+                p0.y -= dy * m2;
+            }
+            // draw constraint
+            draw() {
+                if (!this.visible) return;
+                ctx.beginPath();
+                ctx.lineWidth = 1;
+                ctx.lineCap = "round";
+                ctx.moveTo(this.p0.x, this.p0.y);
+                ctx.lineTo(this.p1.x, this.p1.y);
+                ctx.backgroundColor = "red";
+                ctx.stroke();
+            }
+        }
+        // build a new chain
+        const chain = (parent, len, num, mass) => {
+            let p = null;
+            let b = parent;
+            for (let i = 0; i < num; ++i) {
+                p = new Point(parent.x, b.y + len, mass).link(b, false, true);
+                b = p;
+            }
+            return p;
+        };
+        // setup canvas
+        const canvas = {
+            init: function () {
+                this.elem = document.getElementById("c");
+                const ctx = this.elem.getContext("2d", { alpha: false });
+                this.resize();
+                window.addEventListener("resize", () => canvas.resize(), true);
+                return ctx;
+            },
+            resize() {
+                this.width = this.elem.width = this.elem.offsetWidth;
+                this.height = this.elem.height = this.elem.offsetHeight;
+            }
+        };
+        // setup pointer
+        const pointer = {
+            init(canvas) {
+                this.x = this.dx = this.endX = this.startX = canvas.width * 0.5;
+                this.y = this.dy = this.endY = this.startY = 0;
+                this.isDown = false;
+                window.addEventListener("mousemove", e => this.move(e), false);
+                canvas.elem.addEventListener("touchmove", e => this.move(e), false);
+                window.addEventListener("mousedown", e => this.down(e), false);
+                window.addEventListener("touchstart", e => this.down(e), false);
+                window.addEventListener("mouseup", e => this.up(e), false);
+                window.addEventListener("touchend", e => this.up(e), false);
+                window.addEventListener("touchcancel", e => this.up(e), false);
+            },
+            move(e) {
+                let touchMode = e.targetTouches, p;
+                if (touchMode) {
+                    e.preventDefault();
+                    p = touchMode[0];
+                } else p = e;
+                this.x = p.clientX;
+                this.y = p.clientY;
+                if (this.isDown) {
+                    this.dx = this.endX + (this.x - this.startX);
+                    this.dy = this.endY + (this.y - this.startY);
+                }
+            },
+            down(e) {
+                this.move(e);
+                this.startX = this.x;
+                this.startY = this.y;
+                this.isDown = true;
+                scr.style.pointerEvents = "none";
+            },
+            up(e) {
+                this.isDown = false;
+                this.endX = this.dx;
+                this.endY = this.dy;
+                scr.style.pointerEvents = "auto";
+            }
+        };
+        // pen setup
+        const ctx = canvas.init();
+        pointer.init(canvas);
+        // Embed "what power" pen
+        const scale = 0.2;
+        const scr = document.getElementById("screen");
+        scr.style.width = 27 + "%";
+        scr.style.height = 15 + "%";
+
+
+
+        // Engine
+        const points = [];
+        const links = [];
+        const p1 = new Point(
+            canvas.width * 0.5 - canvas.width * scale * 0.5,
+            pointer.y,
+            0
+        );
+        const p2 = new Point(
+            canvas.width * 0.5 + canvas.width * scale * 0.5,
+            pointer.y,
+            0
+        );
+        // chains
+        const c1 = chain(p1, canvas.height * 0.5 / 20, 20, 1);
+        const c2 = chain(p2, canvas.height * 0.5 / 20, 20, 1);
+        // box
+        const b1 = new Point(c1.x, c1.y, 2).link(c1, true, false);
+        const b2 = new Point(c2.x, c2.y, 2).link(c2, true, false).link(b1, true, false);
+        const b3 = new Point(c1.x, c1.y + canvas.width * scale * 0.5, 2)
+            .link(b1, true, false)
+            .link(b2, true, false);
+        const b4 = new Point(c2.x, c2.y + canvas.width * scale * 0.5, 2)
+            .link(b2, true, false)
+            .link(b3, true, false)
+            .link(b1, true, false);
+        b1.ox -= 200;
+        // animation loop
+        const run = () => {
+
+            requestAnimationFrame(run);
+            // pointer
+            p1.x = pointer.dx - canvas.width * scale * 0.25;
+            p2.x = pointer.dx + canvas.width * scale * 0.25;
+            p1.y = pointer.dy;
+            p2.y = pointer.dy;
+            // verlet integration
+            for (let p of points) {
+                p.integrate();
+            }
+            // solve constraints
+            for (let i = 0; i < 10; ++i) {
+                for (let link of links) {
+                    link.solve();
+                }
+            }
+            // draw things
+            ctx.fillStyle = "#deebef";
+            ctx.fillRect(0, 0, canvas.width, p1.y);
+            ctx.fillStyle = "#deebef";
+            ctx.fillRect(0, p1.y, canvas.width, canvas.height - p1.y);
+            for (let link of links) {
+                link.draw();
+            }
+            ctx.beginPath();
+            ctx.strokeStyle = "#555";
+            ctx.moveTo(0, p1.y);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.fillStyle = "#aaa192";
+            ctx.font = "150px Raleway Dots";
+
+            ctx.fillStyle = "#c30";
+            ctx.arc(p1.x, p1.y, canvas.width * 0.008, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.arc(p2.x, p2.y, canvas.width * 0.008, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            // move iFrame
+            const nx = c2.x - c1.x;
+            const ny = c2.y - c1.y;
+            const rot = Math.atan2(ny, nx) / Math.PI * 180;
+            scr.style.transform =
+                "translate(" +
+                c1.x +
+                "px, " +
+                c1.y +
+                "px) rotate(" +
+                rot +
+                "deg) translate(" +
+                -canvas.width * 0.02 +
+                "px, -3px) scale(0.5)";
+        };
+        run();
+    }
+    hjfunction();
+
+    setInterval(function () { hjfunction(); }, 5000);
+
+</script>
+

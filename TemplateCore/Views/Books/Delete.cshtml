@@ -1,0 +1,77 @@
+﻿@model Models.Book
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1>حذف</h1>
+
+<h3>آیا از حذف کتاب مطمئن هستید؟</h3>
+<div>
+    <hr />
+    <div class="row">
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </div>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Content)
+        </dt>*@
+        @*<dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Content)
+        </dd>*@
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Cover)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Cover)
+        </dd>*@
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Author)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.Author)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Publisher)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.Publisher)
+        </div>
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreateDate)
+        </div>
+        <div class="col-sm-10">
+            @{
+                var date = Model.CreateDate.ToString("dd/MM/yyyy");
+            }
+            @date
+        </div>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.CreateDateShamsi)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.CreateDateShamsi)
+        </dd>*@
+        <div class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ContPage)
+        </div>
+        <div class = "col-sm-10">
+            @Html.DisplayFor(model => model.ContPage)
+        </div>
+        @*<dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BookType)
+        </dt>*@
+        @*<dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookType.Id)
+        </dd class>*@
+    </div>
+    
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="حذف" class="btn btn-danger" /> |
+        <a asp-action="Index">برگشت به لیست کتاب</a>
+    </form>
+</div>

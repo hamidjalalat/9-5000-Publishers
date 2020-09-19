@@ -1,0 +1,501 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    List<Models.Book> ListBookTajrobi = ViewData["ListTajrobi"] as List<Book>;
+    List<Models.Book> ListBookEnsani = ViewData["ListEnsani"] as List<Book>;
+    List<Models.Book> ListBookRiazi = ViewData["ListRiazi"] as List<Book>;
+
+}
+<link href="~/css/reset.css" rel="stylesheet" />
+<link href="~/css/Swiper.css" rel="stylesheet" />
+<link href="~/css/site.css" rel="stylesheet" />
+<script src="~/js/jquery-3.4.1.min.js"></script>
+<script src="~/js/swiper.js"></script>
+<style>
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        font-weight: 300;
+    }
+
+    .ag-slide-block {
+        background-color: #f7f3f2;
+        overflow: hidden;
+    }
+
+    .ag-slide_item {
+        padding: 90px 0;
+        -webkit-transition: transform 0.5s;
+        -moz-transition: transform 0.5s;
+        -ms-transition: transform 0.5s;
+        -o-transition: transform 0.5s;
+        transition: transform 0.5s;
+    }
+
+    .ag-slide_img {
+        display: block;
+        width: 100%;
+        max-width: 317px;
+        margin: 0 auto;
+        -webkit-box-shadow: 0 20px 172px 0 rgba(0, 0, 0, 0.05);
+        -moz-box-shadow: 0 20px 172px 0 rgba(0, 0, 0, 0.05);
+        -o-box-shadow: 0 20px 172px 0 rgba(0, 0, 0, 0.05);
+        box-shadow: 0 20px 172px 0 rgba(0, 0, 0, 0.05);
+        -webkit-transition: ease 0.5s;
+        -moz-transition: ease 0.5s;
+        -ms-transition: ease 0.5s;
+        -o-transition: ease 0.5s;
+        transition: ease 0.5s;
+    }
+
+    .ag-slide_info {
+        width: 100%;
+        margin: 0 auto;
+        padding: 10px 8px 5px;
+        background-color: #FFF;
+        opacity: 0.5;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-transition: ease 0.5s;
+        -moz-transition: ease 0.5s;
+        -ms-transition: ease 0.5s;
+        -o-transition: ease 0.5s;
+        transition: ease 0.5s;
+    }
+
+    .ag-slide-info_descr {
+        float: left;
+    }
+
+    .ag-slide-info_category {
+        font-size: 8px;
+        display: block;
+        color: #959494;
+        padding-bottom: 5px;
+    }
+
+    .ag-slide-info_title {
+        line-height: 10px;
+        width: 150px;
+        padding-bottom: 5px;
+        font-weight: 800;
+        font-size: 10px;
+        color: #262626;
+        will-change: transform;
+    }
+
+    .ag-slide-info_route {
+        display: block;
+        line-height: 10px;
+        font-size: 8px;
+        color: #959494;
+    }
+
+    .ag-slide-info_img {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        -webkit-transform: translateY(25%);
+        -moz-transform: translateY(25%);
+        -ms-transform: translateY(25%);
+        -o-transform: translateY(25%);
+        transform: translateY(25%);
+    }
+
+    .ag-slide-info_rate {
+        float: right;
+        height: 40px;
+        width: 40px;
+        border: 1px solid #e4d7d9;
+        text-align: center;
+        will-change: transform;
+        -webkit-border-radius: 3px 3px 3px 3px;
+        -moz-border-radius: 3px 3px 3px 3px;
+        -ms-border-radius: 3px 3px 3px 3px;
+        -o-border-radius: 3px 3px 3px 3px;
+        border-radius: 3px 3px 3px 3px;
+    }
+
+    .ag-slide-info_strong {
+        display: block;
+        font-weight: normal;
+        color: #fc3b62;
+    }
+
+    .ag-slide-info_comments {
+        letter-spacing: -0.01em;
+        font-size: 6px;
+    }
+
+
+    .ag-slide-block .swiper-container {
+        padding-top: 13px;
+    }
+
+    .ag-slide-block .swiper-slide {
+        padding-left: 15px;
+        padding-right: 15px;
+        z-index: 1;
+        will-change: transform;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    .ag-slide-block .swiper-slide-active {
+        opacity: 1;
+        z-index: 2;
+        will-change: transform;
+        -webkit-transform: scale(1.3);
+        -moz-transform: scale(1.3);
+        -ms-transform: scale(1.3);
+        -o-transform: scale(1.3);
+        transform: scale(1.3);
+        -webkit-transition: transform 0.5s;
+        -moz-transition: transform 0.5s;
+        -ms-transition: transform 0.5s;
+        -o-transition: transform 0.5s;
+        transition: transform 0.5s;
+    }
+
+        .ag-slide-block .swiper-slide-active .ag-slide_img {
+            opacity: 1;
+            will-change: transform;
+            -webkit-transition: ease 0.5s;
+            -moz-transition: ease 0.5s;
+            -ms-transition: ease 0.5s;
+            -o-transition: ease 0.5s;
+            transition: ease 0.5s;
+        }
+
+    .swiper-slide-active .ag-slide_info {
+        opacity: 1;
+        -webkit-transition: ease 0.5s;
+        -moz-transition: ease 0.5s;
+        -ms-transition: ease 0.5s;
+        -o-transition: ease 0.5s;
+        transition: ease 0.5s;
+    }
+
+    @@media (max-width: 1220px) {
+        .ag-slide-info_title {
+            width: 130px;
+        }
+    }
+
+    @@media (max-width: 960px) {
+        .ag-slide-block .swiper-container {
+            max-width: 960px;
+            width: 100%;
+            margin-top: -22px;
+            padding-top: 0;
+        }
+
+        .ag-slide-info_title {
+            width: 115px;
+        }
+
+        .ag-slide-info_rate {
+            height: 37px;
+            width: 37px;
+        }
+    }
+
+    @@media (max-width: 600px) {
+        .ag-slide-info_title {
+            width: 95px;
+            font-size: 8px;
+        }
+
+        .ag-slide-info_category {
+            font-size: 6px;
+        }
+
+        .ag-slide-info_route {
+            font-size: 6px;
+        }
+
+        .ag-slide-info_img {
+            width: 7px;
+            height: 7px;
+        }
+
+        .ag-slide-info_strong {
+            font-size: 14px;
+        }
+
+        .ag-slide-info_comments {
+            letter-spacing: 0;
+            font-size: 5px;
+        }
+    }
+
+    @@media (max-width: 560px) {
+        .ag-slide-info_title {
+            width: 130px;
+        }
+    }
+
+    @@media (max-width: 470px) {
+        .ag-slide-info_title {
+            width: 115px;
+        }
+    }
+
+    @@media (max-width: 400px) {
+        .ag-slide_img {
+            width: 70%;
+        }
+
+        .ag-slide_info {
+            width: 70%;
+        }
+
+        .ag-slide-info_title {
+            width: 130px;
+        }
+
+        .ag-slide-info_img {
+            width: 10px;
+        }
+
+        .ag-slide-block .swiper-slide {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+</style>
+
+
+
+<!DOCTYPE html>
+
+<!--[if gt IE 8]><!-->
+<html lang="ira">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8" />
+    <title>Swiper responsive</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+    <div>
+        <div class="ag-slide-block">
+            <span style="margin-right:20px;">   تجربی</span>
+            <div class="swiper-container">
+
+                <ul class="swiper-wrapper ag-slide_list">
+                    @foreach (var item in ListBookTajrobi)
+                    {
+                    <li class="swiper-slide ag-slide_item" data-swiper-autoplay="1500" data-swiper-slide-index="@item.Id">
+                        <img src="@item.Cover" class="ag-slide_img" alt="">
+                        <div class="ag-slide_info clearfix">
+                            <div>
+                                <h6>@item.Name</h6>
+                                <small>@item.Author</small>
+                            </div>
+
+                        </div>
+                        <a href="\ShowContantBook\Index\@item.Id"  value="نمایش" class="btn btn-primary  btn-block"   >نمایش</a>
+                    </li>
+                       
+
+
+                    }
+
+
+                    @*<li class="ag-slide_item swiper-slide swiper-slide-prev" data-swiper-autoplay="1500" data-swiper-slide-index="5">
+            <img src="~/image/74806.jpg" class="ag-slide_img" alt="">
+            <div class="ag-slide_info clearfix">
+                <div class="ag-slide-info_descr">
+                    <small class="ag-slide-info_category">حمید جلالت</small>
+                    <h6 class="ag-slide-info_title">رامین آرامش</h6>
+                    <span class="ag-slide-info_route">
+                        <img src="https://rawcdn.githack.com/SochavaAG/example-mycode/master/pens/swiper/images/arrow.svg" class="ag-slide-info_img" alt=""> آموزش
+                    </span>
+                </div>
+                <div class="ag-slide-info_rate">
+                    <b class="ag-slide-info_strong">0.0</b>
+                    <span class="ag-slide-info_comments">Нет Yaser</span>
+                </div>
+            </div>
+        </li>
+        <li class="ag-slide_item swiper-slide swiper-slide-active" data-swiper-autoplay="1500" data-swiper-slide-index="6">
+
+            <img src="~/image/70422.jpg" class="ag-slide_img" alt="">
+            <div class="ag-slide_info clearfix">
+                <div class="ag-slide-info_descr">
+                    <small class="ag-slide-info_category">حمید جلالت</small>
+                    <h6 class="ag-slide-info_title">رامین آرامش</h6>
+                    <span class="ag-slide-info_route">
+                        <img src="https://rawcdn.githack.com/SochavaAG/example-mycode/master/pens/swiper/images/arrow.svg" class="ag-slide-info_img" alt=""> آموزش
+                    </span>
+                </div>
+                <div class="ag-slide-info_rate">
+                    <b class="ag-slide-info_strong">9.5</b>
+                    <span class="ag-slide-info_comments">24 تومان</span>
+                </div>
+            </div>
+        </li>
+        <li class="ag-slide_item swiper-slide swiper-slide-next" data-swiper-autoplay="1500" data-swiper-slide-index="7">
+            <img src="~/image/65065.jpg" class="ag-slide_img" alt="">
+            <div class="ag-slide_info clearfix">
+                <div class="ag-slide-info_descr">
+                    <small class="ag-slide-info_category">حمید جلالت</small>
+                    <h6 class="ag-slide-info_title">رامین آرامش</h6>
+                    <span class="ag-slide-info_route">
+                        <img src="https://rawcdn.githack.com/SochavaAG/example-mycode/master/pens/swiper/images/arrow.svg" class="ag-slide-info_img" alt=""> آموزش
+                    </span>
+                </div>
+                <div class="ag-slide-info_rate">
+                    <b class="ag-slide-info_strong">9.5</b>
+                    <span class="ag-slide-info_comments">24 تومان</span>
+                </div>
+            </div>
+        </li>*@
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div>
+        <div class="ag-slide-block">
+            <span style="margin-right:20px;">   انسانی</span>
+            <div class="swiper-container">
+
+                <ul class="swiper-wrapper ag-slide_list">
+                    @foreach (var item in ListBookEnsani)
+                    {
+                    <li class="swiper-slide ag-slide_item" data-swiper-autoplay="1500" data-swiper-slide-index="@item.Id">
+                        <img src="@item.Cover" class="ag-slide_img" alt="">
+                        <div class="ag-slide_info clearfix">
+                            <div>
+                                <h6>@item.Name</h6>
+                                <small>@item.Author</small>
+                            </div>
+
+                        </div>
+
+                        <a href="\ShowContantBook\Index\@item.Id" value="نمایش" class="btn btn-primary  btn-block">نمایش</a>
+
+
+                    </li>
+
+
+                    }
+
+
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <br />
+    <div>
+        <div class="ag-slide-block">
+            <span style="margin-right:20px;">   ریاضی</span>
+            <div class="swiper-container">
+
+                <ul class="swiper-wrapper ag-slide_list">
+                    @foreach (var item in ListBookRiazi)
+                    {
+                    <li class="swiper-slide ag-slide_item" data-swiper-autoplay="1500" data-swiper-slide-index="@item.Id">
+                        <img src="@item.Cover" class="ag-slide_img" alt="">
+                        <div class="ag-slide_info clearfix">
+                            <div>
+                                <h6>@item.Name</h6>
+                                <small>@item.Author</small>
+                            </div>
+
+                        </div>
+
+                        <a href="\ShowContantBook\Index\@item.Id" value="نمایش" class="btn btn-primary  btn-block">نمایش</a>
+
+
+                    </li>
+
+
+                    }
+
+
+
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+<script>
+    $(document).ready(function () {
+        $(".showBook").click(function () {
+            var thisId = this.id;
+            alert(thisId);
+        });
+             });
+    (function ($) {
+    
+        $(function () {
+
+            var agSwiper = $('.swiper-container');
+
+            if (agSwiper.length > 0) {
+
+                var sliderView = 1;
+                var ww = $(window).width();
+                if (ww >= 1700) sliderView = 7;
+                if (ww <= 1700) sliderView = 7;
+                if (ww <= 1560) sliderView = 6;
+                if (ww <= 1400) sliderView = 5;
+                if (ww <= 1060) sliderView = 4;
+                if (ww <= 800) sliderView = 3;
+                if (ww <= 560) sliderView = 2;
+                if (ww <= 400) sliderView = 1;
+
+                var swiper = new Swiper('.swiper-container', {
+                    slidesPerView: sliderView,
+                    spaceBetween: 0,
+                    loop: true,
+                    loopedSlides: 16,
+                    speed: 700,
+                    autoplay: true,
+                    autoplayDisableOnInteraction: true,
+                    centeredSlides: true
+                });
+
+                $(window).resize(function () {
+                    var ww = $(window).width();
+                    if (ww >= 1700) swiper.params.slidesPerView = 7;
+                    if (ww <= 1700) swiper.params.slidesPerView = 7;
+                    if (ww <= 1560) swiper.params.slidesPerView = 6;
+                    if (ww <= 1400) swiper.params.slidesPerView = 5;
+                    if (ww <= 1060) swiper.params.slidesPerView = 4;
+                    if (ww <= 800) swiper.params.slidesPerView = 3;
+                    if (ww <= 560) swiper.params.slidesPerView = 2;
+                    if (ww <= 400) swiper.params.slidesPerView = 1;
+                });
+
+                $(window).trigger('resize');
+
+                var mySwiper = document.querySelector('.swiper-container').swiper;
+
+                agSwiper.mouseenter(function () {
+                    mySwiper.autoplay.stop();
+                    console.log('slider stopped');
+                });
+
+                agSwiper.mouseleave(function () {
+                    mySwiper.autoplay.start();
+                    console.log('slider started again');
+                });
+            }
+
+        });
+    })(jQuery);
+</script>
+

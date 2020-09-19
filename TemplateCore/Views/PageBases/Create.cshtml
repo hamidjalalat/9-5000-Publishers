@@ -1,0 +1,537 @@
+﻿@model Models.PageBase
+
+@{
+    ViewData["Title"] = "Create";
+    var ListTips = ViewData["ListTips"] as Models.Lesson;
+}
+
+<style>
+    #validationgoldenTips {
+        color: #ed3939;
+    }
+
+    #PageNumber {
+        pointer-events: none;
+        opacity: 0.6;
+    }
+
+    .count {
+        color: #ae0b0b;
+    }
+
+    .modal-header {
+        background-color: rgb(76, 208, 53);
+        color: white
+    }
+</style>
+<h3 class="titlemain">بارگذاری صفحات کتاب</h3>
+<div class="row">
+    <div class="col-md-12">
+
+
+        <div class="card">
+            <div class="card-header" style="background-color:silver;font-size:18px;">
+                بارگذاری صفحات کتاب
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" enctype="multipart/form-data">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                    <div class="form-group" hidden="hidden">
+                        <label asp-for="Id" class="control-label"></label>
+                        <input asp-for="Id" class="form-control" />
+                        <span asp-validation-for="Id" class="text-danger"></span>
+                    </div>
+
+                    <div class='form-group row'>
+                        <label asp-for="BookId" class="control-label col-sm-2"></label>
+                        <div class='col-sm-8'>
+                            <select asp-for="BookId" class="form-control" asp-items="ViewBag.BookId"></select>
+                        </div>
+                    </div>
+
+                    <div class='form-group row'>
+                        <label asp-for="PageNumber" class="control-label col-sm-2"></label>
+                        <div class='col-sm-8'>
+                            <input asp-for="PageNumber" class="form-control" />
+                            <span asp-validation-for="PageNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class='form-group row'>
+                        <label asp-for="ServerPath" class="control-label col-sm-2"></label>
+
+                        <div class='col-sm-7'>
+                            <div class="col-md-12">
+                                <input type="file" title="search image" id="file" class="custom-file-input" name="file" style="display:inline"  />
+
+                                <label class="custom-file-label" for="customFile">@Model.ServerPath</label>
+                                <span asp-validation-for="ServerPath" class="text-danger"></span>
+                            </div>
+
+                        </div>
+                        @if (ListTips != null)
+                        {
+                            <div class="col-sm-1">
+                                <span id="@Model.ServerPath" class="btnembedShow">
+                                    <svg width="3em" height="2em" viewBox="0 0 16 16" class="bi bi-display-fill" fill="currentColor">
+                                        <path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z" />
+                                    </svg>
+                                </span>
+                            </div>
+                        }
+                        </div>
+                        
+
+                    <div class='form-group row'>
+                        <label asp-for="SessionNumber" class="control-label col-sm-2"></label>
+                        <div class='col-sm-8'>
+                            <input asp-for="SessionNumber" class="form-control" />
+                            <span asp-validation-for="SessionNumber" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    @*<div class='form-group row'>
+            <label asp-for="Content" class="control-label col-sm-2"></label>
+            <div class='col-sm-8'>
+                <input asp-for="Content" class="form-control" />
+                <span asp-validation-for="Content" class="text-danger"></span>
+            </div>
+        </div>*@
+
+                    @*<div class='form-group row'>
+            <label  class="form-check-label col-sm-2"></label>
+            <div class='col-sm-9'>
+                <input class="form-check-input" asp-for="Enable" /> @Html.DisplayNameFor(model => model.Enable)
+            </div>
+        </div>*@
+                    <div class="modal" id="goldentips" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">ثبت نکات طلایی</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">شماره صفحه</label>
+                                        <div class='col-sm-8'>
+                                            <input id="goldenTipsPageNumber" name="goldenTipsPageNumber" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">انتخاب فایل محتوا</label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <input type="file" title="search image" id="fileGoldenTips" class="custom-file-input" name="fileGoldenTips" />
+                                                <label class="custom-file-label" for="customFile">انتخاب فایل محتوا</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4"></label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <label id="validationgoldenTips" style="color: #ed3939;"></label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="button" value="ذخیره" id="saveGoldenTips" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div class="modal" id="conceptualpoints" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">ثبت نکات مفهومی </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">شماره صفحه</label>
+                                        <div class='col-sm-8'>
+                                            <input id="conceptualPointsPageNumber" name="conceptualPointsPageNumber" class="form-control" />
+                                        </div>
+                                    </div>
+
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">انتخاب فایل محتوا</label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <input type="file" title="search image" id="conceptualpointsfiles" class="custom-file-input" name="conceptualpointsfiles" />
+                                                <label class="custom-file-label" for="customFile">انتخاب فایل محتوا</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4"></label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <label id="validationconceptualPoints" style="color: #ed3939;"></label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="button" value="ذخیره" id="saveconceptualPoints" class="btn btn-primary" />
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal" id="letterchart" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">ثبت نمودار نامه</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">شماره صفحه</label>
+                                        <div class='col-sm-8'>
+                                            <input id="letterChartPageNumber" name="letterChartPageNumber" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">انتخاب فایل محتوا</label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <input type="file" title="search image" id="fileLetterChart" class="custom-file-input" name="fileLetterChart" />
+                                                <label class="custom-file-label" for="customFile">انتخاب فایل محتوا</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4"></label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <label id="validationletterChart" style="color: #ed3939;"></label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="button" value="ذخیره" id="saveLetterChart" class="btn btn-primary" />
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal" id="lettertable" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">ثبت جدول نامه</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">شماره صفحه</label>
+                                        <div class='col-sm-8'>
+                                            <input id="letterTablePageNumber" name="letterTablePageNumber" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">انتخاب فایل محتوا</label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <input type="file" title="search image" id="fileLetterTable" class="custom-file-input" name="fileLetterTable" />
+                                                <label class="custom-file-label" for="customFile">انتخاب فایل محتوا</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4"></label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <label id="validationletterTable" style="color: #ed3939;"></label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="button" value="ذخیره" id="saveLetterTable" class="btn btn-primary" />
+                                    </div>
+
+
+
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal" id="movie" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">فیلم</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">شماره فیلم</label>
+                                        <div class='col-sm-8'>
+                                            <input id="moviePageNumber" name="moviePageNumber" class="form-control" />
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4">انتخاب فایل محتوا</label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <input type="file" title="search image" id="fileMovie" class="custom-file-input" name="fileMovie" />
+                                                <label class="custom-file-label" for="customFile">انتخاب فایل محتوا</label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class='form-group row'>
+                                        <label class="control-label col-sm-4"></label>
+                                        <div class='col-sm-8'>
+                                            <div class="col-md-12">
+                                                <label id="validationmovie" style="color: #ed3939;"></label>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <input type="button" value="ذخیره" id="saveMovie" class="btn btn-primary" />
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal" id="messageSuccess" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:rgb(76, 208, 53);color:white">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>عملیات ذخیره با موفقیت انجام شد</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal" id="messageError" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:red;color:white">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p>متاسفانه عملیات ذخیره انجام نشد </p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal" id="publicMessage" tabindex="-1" role="dialog">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header" style="background-color:red;color:white">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <p></p>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="embedShow">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <embed type="text/html" id="showIframe" src="~/pagegoldentips/testjalalat.htm" style="height:500px;width:100%">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="PublicembedShow">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content" id="tempIframe">
+                                @*<embed type="text/html" id="showIframe" src="~/pagegoldentips/testjalalat.htm" style="height:500px;width:100%">*@
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true" id="moveiTagShow">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content" id="temVideo" >
+                              
+                                @*<source src="~/pagemovie/testfilm.mp4" type="video/mp4" />*@
+                              
+                                @*<embed type="text/html" id="showIframe" src="~/pagegoldentips/testjalalat.htm" style="height:500px;width:100%">*@
+                            </div>
+                        </div>
+                    </div>
+                    @*<input type="button" value="نکات طلایی" class="btn btn-primary" id="btngoldentips" /><span id="countbtngoldentips">0</span>
+        <input type="button" value="نکات مفهومی" class="btn btn-primary" id="btnconceptualpoints" />*@
+
+                    @if (ListTips != null)
+                    {
+                        <div class='form-group row'>
+                            <label class="control-label col-sm-2"></label>
+                            <div class='col-sm-9'>
+                                @if (ListTips.HasGoldenTips == true)
+                                {
+                                    <input type="button" value="نکات طلایی" class="btn btn-primary" id="btngoldentips" /> <span class="count" id="countbtngoldentips"> 0 </span>
+                                    <span id="spanGoldenTipsDisplay">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-display-fill" fill="currentColor">
+                                            <path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z" />
+                                        </svg>
+                                    </span>
+                                }
+                                &nbsp; &nbsp;
+                                @if (ListTips.HasConceptualPoints == true)
+                                {
+                                    <input type="button" value="نکات مفهومی" class="btn btn-primary" id="btnconceptualpoints" /><span id="countconceptualpoints"> 0 </span>
+                                    <span id="spanConceptualPointsDisplay">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-display-fill" fill="currentColor">
+                                            <path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z" />
+                                        </svg>
+                                    </span>
+                                }
+                                &nbsp; &nbsp;
+                                @if (ListTips.HasLetterCharts == true)
+                                {
+                                    <input type="button" value="نمودار نامه" class="btn btn-primary" id="btnletterchart" /><span id="countletterchart"> 0 </span>
+                                    <span id="spanLetterChartDisplay">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-display-fill" fill="currentColor">
+                                            <path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z" />
+                                        </svg>
+                                    </span>
+                                }
+                                &nbsp; &nbsp;
+                                @if (ListTips.HasLetterTables == true)
+                                {
+                                    <input type="button" value="جدول نامه" class="btn btn-primary" id="blettertable" /><span id="countlettertable"> 0 </span>
+                                    <span id="spanLetterTableDisplay">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-display-fill" fill="currentColor">
+                                            <path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z" />
+                                        </svg>
+                                    </span>
+                                }
+                                &nbsp; &nbsp;
+                                @if (ListTips.HasMovies == true)
+                                {
+                                    <input type="button" value="فیلم" class="btn btn-primary" id="btnmovie" /><span id="countmovie"> 0 </span>
+                                    <span id="spanMovieDisplay">
+                                        <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-display-fill" fill="currentColor">
+                                            <path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z" />
+                                        </svg>
+                                    </span>
+                                }
+                                &nbsp; &nbsp;
+                                <br />
+
+                            </div>
+
+                        </div>
+
+                        <div class="form-group">
+                            <a asp-action="Create" class="btn btn-primary">بعدی</a>
+                            @*<input type="button" value="بعدی" id="nextPage" class="btn btn-primary" />*@
+                        </div>
+                        <style>
+
+
+                            #BookId {
+                                pointer-events: none;
+                                opacity: 0.6;
+                            }
+
+                            #file {
+                                pointer-events: none;
+                            }
+
+                            #SessionNumber {
+                                pointer-events: none;
+                                opacity: 0.6;
+                            }
+                        </style>
+                    }
+                    else
+                    {
+                        <div class="form-group">
+                            <input type="submit" value="ذخیره" id="save" class="btn btn-primary" />
+                        </div>
+
+                        <br />
+                        <a href="#" id="nextPage">انتخاب کتاب از نو</a>
+                    }
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+    @*<div class="form-group">
+            <a asp-action="FullUpdatePageBase" asp-route-id="@Model.BookId" id="fullUpload">بار گذاری صفحات به صورت کلی</a>
+        </div>*@
+</div>
+
+<div>
+    @*<a asp-action="Index">برگشت به لیست</a>*@
+
+    @*<input  value="انتخاب کتاب از نو" id="nextPage" class="btn btn-primary" />*@
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+
+<script src="~/js/pagebase/create.js"></script>

@@ -1,0 +1,135 @@
+﻿
+@{
+
+    ViewData["Title"] = "Index";
+}
+<style>
+
+    span {
+    }
+
+    .WordSection1 {
+        background-color: red;
+    }
+</style>
+<div class="container-fluid" id="app" v-cloak>
+
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-5" style="border:solid 1px black;border-radius:5px">
+            <div class="row" style="background-color:rgb(76, 208, 53);color:white;">
+                <h6 style="text-align:center;padding:5px">نکات</h6>
+            </div>
+            <div class="row" style="margin-top:5px">
+
+                <button type="button" class="btn  " style=" height:30px;width:120px; font-size: 12px " id="btngoldenTips" v-bind:class="{'btn-success': hasClassGoldenTipsSuccess,'btn-info':hasClassGoldenTipsInfo}" v-on:click="goldenTips()">نکات طلایی {{pageBaseFullLists[postion].goldenTips.length}}</button>&nbsp;
+
+                <button type="button" class="btn " style="height:30px;width:120px;font-size:12px" id="btnconceptualPoints" v-bind:class="{'btn-success': hasClassConceptualPointsSuccess,'btn-info':hasClassConceptualPointsInfo}" v-on:click="conceptualPoints()"> نکات مفهومی {{pageBaseFullLists[postion].conceptualPoints.length}} </button>&nbsp;
+
+                <button type="button" class="btn " style="height:30px;width:120px;font-size:12px" id="btnletterCharts" v-bind:class="{'btn-success': hasClassLetterChartsSuccess,'btn-info':hasClassLetterChartsInfo}" v-on:click="letterCharts()"> نمودار نامه {{pageBaseFullLists[postion].letterCharts.length}} </button>&nbsp;
+
+                <button type="button" class="btn " style="height:30px;width:120px;font-size:12px" id="btnletterTables" v-bind:class="{'btn-success': hasClassLetterTablesSuccess,'btn-info':hasClassLetterTablesInfo}" v-on:click="letterTables()"> جدول نامه {{pageBaseFullLists[postion].letterTables.length}}</button>&nbsp;
+
+                <button type="button" class="btn " style="height:30px;width:120px;font-size:12px" id="btnmovies" v-bind:class="{'btn-success': hasClassMoviesSuccess,'btn-info':hasClassMoviesTablesInfo}" v-on:click="movies()"> فیلم {{pageBaseFullLists[postion].movies.length}}</button>&nbsp;
+
+                <a v-bind:href="tipshref">تمام صفحه</a>
+            </div>
+            <div id="goldenTips">
+                <div v-if="pageBaseFullLists[postion].goldenTips[0]">
+                    <hj-contant v-bind:external-page="pageBaseFullLists[postion].goldenTips"></hj-contant>
+                </div>
+                <div v-else>
+                    <br />
+                    <h5 style="color:orangered">این صفحه نکات طلایی ندارد</h5>
+                </div>
+            </div>
+
+            <div id="conceptualPoints">
+                <div v-if="pageBaseFullLists[postion].conceptualPoints[0]">
+                    <hj-contant v-bind:external-page="pageBaseFullLists[postion].conceptualPoints"></hj-contant>
+                </div>
+                <div v-else>
+                    <br />
+                    <h5 style="color:orangered">این صفحه نکات مفهومی ندارد</h5>
+                </div>
+            </div>
+            <div id="letterCharts">
+                <div v-if="pageBaseFullLists[postion].letterCharts[0]">
+                    <hj-contant v-bind:external-page="pageBaseFullLists[postion].letterCharts"></hj-contant>
+                </div>
+                <div v-else>
+                    <br />
+                    <h5 style="color:orangered">این صفحه نمودار نامه ندارد</h5>
+                </div>
+            </div>
+            <div id="letterTables">
+                <div v-if="pageBaseFullLists[postion].letterTables[0]">
+                    <hj-contant v-bind:external-page="pageBaseFullLists[postion].letterTables"></hj-contant>
+                </div>
+                <div v-else>
+                    <br />
+                    <h5 style="color:orangered">این صفحه جدول  نامه ندارد</h5>
+                </div>
+            </div>
+            <div id="movies">
+                <div v-if="pageBaseFullLists[postion].movies[0]">
+                    <hj-movies v-bind:external-page="pageBaseFullLists[postion].movies"></hj-movies>
+                </div>
+                <div v-else>
+                    <br />
+                    <h5 style="color:orangered">این صفحه فیلم ندارد</h5>
+                </div>
+            </div>
+        </div>
+        &nbsp&nbsp
+        <div class="col-5" style="border:solid 1px black;border-radius:5px">
+            <div class="row" style="background-color:rgb(76, 208, 53);color:white;">
+                <h6 style="text-align:center;padding:5px">کتاب</h6>
+            </div>
+            <div>
+                <div class="row" style="margin-top:5px">
+
+                    <button type="button" class="btn btn-info" style="height:30px;width:120px;font-size:12px" id="first" v-on:click="first()"> <<  صفحه اول</button>&nbsp;
+
+                    <button type="button" class="btn btn-info" style="height:30px;width:120px;font-size:12px" id="next" v-on:click="next()"> >  صفحه بعد  </button>&nbsp;
+
+                    <button type="button" class="btn btn-info" style="height:30px;width:120px;font-size:12px" id="previous" v-on:click="previous()"> <  صفحه قبل  </button>&nbsp;
+
+                    <button type="button" class="btn btn-info" style="height:30px;width:120px;font-size:12px" id="last" v-on:click="last()"> >> صفحه آخر  </button>&nbsp;
+                    <label>شماره  صفحه  : {{pagenumber}} از {{countPage}}</label>
+
+                </div>
+                <div class="row">
+                    <label>شماره صفحه</label>
+                    <input type="text" v-model="pagenumber" value=""  style="width:40px;height:30px;" />
+                    <button type="button" class="btn btn-primary" style="height:30px;width:80px;font-size:12px;margin-right:3px" v-on:click="serche()">جستجو</button>&nbsp;
+                    <a v-bind:href="basehref">تمام صفحه</a>
+
+
+
+                </div>
+                <div class="row">
+                    <iframe v-bind:src="pagebase" style="width:100%;height:650px;font-family:Verdana" id="iframbasepage">
+                    </iframe>
+
+                </div>
+
+
+            </div>
+        </div>
+        <div class="col-1"></div>
+    </div>
+</div>
+<script src="~/js/hjComponent.js"></script>
+<script src="~/js/showcontantbook/index.js"></script>
+<script>
+    $(document).ready(function () {
+
+    });
+  
+
+
+</script>
+
+
+

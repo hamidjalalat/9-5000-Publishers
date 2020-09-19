@@ -1,0 +1,247 @@
+﻿@model Models.PageBase
+
+@{
+    ViewData["Title"] = "Edit";
+    var ListTips = ViewData["ListTipsCondition"] as Models.Lesson;
+}
+
+<hr />
+<div class="card">
+
+    <div class="card-body">
+        <form asp-action="SercheEditPage" enctype="multipart/form-data">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+            <input asp-for="BookId" hidden="hidden" />
+            <input asp-for="PageNumber" hidden="hidden" />
+
+            <div class='form-group row'>
+                <label asp-for="ServerPath" class="control-label col-sm-2"></label>
+                <div class='col-sm-7'>
+                    <div class="col-md-12">
+                        <input type="file" title="search image" id="file" class="custom-file-input" name="file" value="@Model.ServerPath" />
+                        <label class="custom-file-label" for="customFile" id="pathLable" >@Model.ServerPath</label>
+                    </div>
+                </div>
+                <div class="col-sm-1">
+                    <span class="btnembedShow">
+                        <svg width="3em" height="2em" viewBox="0 0 16 16" class="bi bi-display-fill" fill="currentColor">
+                            <path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z" />
+                        </svg>
+                    </span>&nbsp;&nbsp;
+                    <span class="lastBtnembedShow" >
+                        <svg width="3em" height="2em" viewBox="0 0 16 16" class="bi bi-display-fill" fill="currentColor">
+                            <path d="M6 12c0 .667-.083 1.167-.25 1.5H5a.5.5 0 0 0 0 1h6a.5.5 0 0 0 0-1h-.75c-.167-.333-.25-.833-.25-1.5h4c2 0 2-2 2-2V4c0-2-2-2-2-2H2C0 2 0 4 0 4v6c0 2 2 2 2 2h4z" />
+                        </svg>
+                    </span>
+                </div>
+           
+            </div>
+
+            <div class='form-group row'>
+                <label asp-for="SessionNumber" class="control-label col-sm-2"></label>
+                <div class='col-sm-8'>
+                    <input asp-for="SessionNumber" class="form-control" />
+                    <span asp-validation-for="SessionNumber" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class='form-group row'>
+                <label class="control-label col-sm-2"></label>
+                <div class='col-sm-8'>
+                    <label id="validationcontent"></label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <input type="button" value="ذخیره" id="savePage" class="btn btn-primary" />
+            </div>
+            @if (ListTips != null)
+            {
+                <div class='form-group row'>
+                    <label class="control-label col-sm-2"></label>
+                    <div class='col-sm-8'>
+                        @if (ListTips.HasGoldenTips == true)
+                        {
+                            <a asp-action="ListGoldenTips" class="btn btn-primary" asp-route-id="@Model.Id">نکات طلایی</a>
+                        }
+                        &nbsp; &nbsp;
+                        @if (ListTips.HasConceptualPoints == true)
+                        {
+                            <a asp-action="ListConceptualPoints" class="btn btn-primary" asp-route-id="@Model.Id">نکات مفهومی</a>
+                        }
+                        &nbsp; &nbsp;
+                        @if (ListTips.HasLetterCharts == true)
+                        {
+                            <a asp-action="ListLetterCharts" class="btn btn-primary" asp-route-id="@Model.Id">نمودار نامه</a>
+                        }
+                        &nbsp; &nbsp;
+                        @if (ListTips.HasLetterTables == true)
+                        {
+
+                            <a asp-action="ListLetterTables" class="btn btn-primary" asp-route-id="@Model.Id">جدول نامه</a>
+                        }
+                        &nbsp; &nbsp;
+                        @if (ListTips.HasMovies == true)
+                        {
+                            <a asp-action="ListMovies" class="btn btn-primary" asp-route-id="@Model.Id">فیلم</a>
+                        }
+                        &nbsp; &nbsp;
+
+                    </div>
+                </div>
+                <div class="form-group">
+
+                </div>
+
+            }
+            else
+            {
+            }
+
+        </form>
+    </div>
+</div>
+<div class="modal" id="messageSuccess" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:rgb(76, 208, 53);color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>عملیات ذخیره با موفقیت انجام شد</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="messageError" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p>متاسفانه عملیات ذخیره انجام نشد </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal" id="publicMessage" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:red;color:white">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="PublicembedShow">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content" id="tempIframe">
+            @*<embed type="text/html" id="showIframe" src="~/pagegoldentips/testjalalat.htm" style="height:500px;width:100%">*@
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="embedShow">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <embed type="text/html" id="showIframe" src="@Model.ServerPath" style="height:500px;width:100%">
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.lastBtnembedShow').hide();
+        $('#savePage').click(function () {
+            var SessionNumber = $("#SessionNumber").val();
+            //var serverPath = $("#file").val();
+         
+            //serverpathlable = $('#serverPathLable').val();
+            //alert(serverpathlable);
+            //if (serverpathlable == '') {
+            //    $('#validationcontent').html('انخاب مسیر فایل محتوا الزامی می باشد');
+            //    return;
+            //}
+            //if (fileGoldenTips == fileGoldenTips.) {
+            //    alert(fileGoldenTips);
+            //    $('#validationgoldenTips').html('انتخاب فایل محتوا الزامی می باشد');
+            //    return;
+            //}
+            var fileUpload = $("#file").get(0);
+            var files = fileUpload.files;
+            var data = new FormData();
+            for (var i = 0; i < files.length; i++) {
+                data.append(files[i].name, files[i]);
+            }
+            data.append('id', $('#Id').val());
+            data.append('SessionNumber', $('#SessionNumber').val());
+            $.ajax({
+                type: "POST",
+                url: "/PageBases/SercheEditPage",
+                contentType: false,
+                processData: false,
+                data: data,
+                success: function (result) {
+                    if (result.result == true) {
+                        $("div#messageSuccess").modal();
+                          $('#tempIframe')
+                        .find('embed')
+                        .remove()
+                            .end();
+                        $("#tempIframe").append('<embed type="text/html" id="showIframe" src="' + result.serverPath + ' "style=height:500px;width:100%">');
+                        $('.lastBtnembedShow').show();
+                        $('.btnembedShow').css('opacity', '0.6');
+                  
+                    }
+                    else {
+                        $("div#publicMessage p").html(result.message);
+                        $("div#publicMessage").modal();
+                    }
+
+                },
+                error: function () {
+                    $("div#messageError").modal();
+                }
+
+                
+
+            });
+        });
+
+        $('#save').click(function () {
+
+        })
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+        $('.btnembedShow').click(function () {
+            $("div#embedShow").modal();
+        });
+        
+         $('.lastBtnembedShow').click(function () {
+            $("div#PublicembedShow").modal();
+        });
+    });
+</script>

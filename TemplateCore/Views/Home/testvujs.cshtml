@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "testvujs";
+}
+    <div id="demo">
+        <div >{{ firstName }}</div>
+        <button v-on:click="doSomething()">execute</button>
+    </div>
+<script>
+    var vm = new Vue({
+        el: '#demo',
+        data: {
+            firstName: 'Foo',
+            lastName: 'Bar',
+            fullName: 'Foo Bar'
+        },
+        methods: {
+
+            doSomething: function () {
+                alert("hamid");
+                this.firstName = `hamid`;
+
+            },
+
+        },
+        watch: {
+            firstName: function (val) {
+                alert(val);
+            },
+         
+
+        }
+    })
+</script>
+
+
